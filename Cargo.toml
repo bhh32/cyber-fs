@@ -1,0 +1,31 @@
+[package]
+name = "cyber-fs"
+version = "0.1.0"
+edition = "2024"
+authors = ["Bryan Hyland <bryan.hyland32@gmail.com>"]
+description = "Ransomware Resistant Kernel-Level Filesystem in Rust"
+license = "GPL-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# Rust for Linux Kernel Crate
+kernel = { git = "https://github.com/Rust-for-Linux/linux.git", rev = "latest" }
+
+# no_std Support Crates
+alloc = "0.1"         # Memory allocation support in no_std
+hashbrown = { version = "0.14", default-features = false, features = ["nightly"] }  # no_std HashMap
+bitflags = "2.4"      # For efficient flag management in kernel space
+
+# Logging for Kernel Space
+log = "0.4"
+env_logger = "0.10"
+
+# For Quarantine and Snapshot Metadata (if needed in alloc-friendly code)
+tinyvec = { version = "1.6", features = ["alloc"] }
+
+[build-dependencies]
+bindgen = "0.69"
+
+[features]
+default = ["alloc"]
